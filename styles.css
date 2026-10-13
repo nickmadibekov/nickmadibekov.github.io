@@ -1,0 +1,547 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+  --bg: #b9cf98;
+  --card: #fffaf0;
+  --outline: #3b4a2d;
+  --stitch: rgba(111, 143, 69, 0.5);
+  --ink: #332c22;
+  --ink-soft: #7a6f5e;
+  --accent: #bd8a3f;
+  --accent-soft: #e3c98f;
+  --line: #ece5d5;
+  --shadow: 0 20px 60px -20px rgba(60, 45, 20, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+html, body {
+  cursor: none;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Nunito', sans-serif;
+  overflow-x: hidden;
+}
+
+.card, .card * {
+  cursor: auto;
+}
+
+.card a {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--accent-soft);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+#raccoon-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: block;
+}
+
+.wrap {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* Card: a stitched patch with a thick crayon outline, uneven hand-cut
+   corners and a hard offset shadow, with a bit of the meadow growing out
+   of its edges. */
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  background: var(--card);
+  border: 3px solid var(--outline);
+  border-radius: 34px 42px 30px 40px / 40px 30px 42px 32px;
+  box-shadow: 8px 9px 0 rgba(59, 74, 45, 0.3), 0 28px 40px -22px rgba(40, 60, 25, 0.35);
+  padding: 44px 48px 48px;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border: 2px dashed var(--stitch);
+  border-radius: 26px 34px 22px 32px / 32px 22px 34px 24px;
+  pointer-events: none;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  pointer-events: none;
+  background:
+    url('assets/bg/grass-3.png') left 62px bottom 16px / 56px auto no-repeat,
+    url('assets/bg/grass-5.png') right 96px bottom 18px / 64px auto no-repeat,
+    url('assets/bg/flower-daisy.png') right 66px top 2px / 38px auto no-repeat;
+}
+
+.name {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.1rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.name .placeholder {
+  color: var(--ink);
+}
+
+.links {
+  margin: 0 0 24px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.links a {
+  text-decoration: underline;
+}
+
+.links .sep {
+  margin: 0 8px;
+  color: #a9bd86;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 2px dashed var(--stitch);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.tabs a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-weight: 500;
+  font-size: 1.02rem;
+  padding: 4px 15px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+
+.tabs a:hover {
+  background: #eef3dc;
+  color: var(--outline);
+}
+
+.tabs a.active {
+  background: #e3edcb;
+  border-color: var(--outline);
+  color: var(--outline);
+}
+
+.content p {
+  line-height: 1.7;
+  font-size: 1.03rem;
+  margin: 0 0 16px;
+}
+
+.content p:last-child {
+  margin-bottom: 0;
+}
+
+.content .gratitude {
+  font-size: 1rem;
+}
+
+.content .section {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--outline);
+  margin: 32px 0 6px;
+}
+
+.content .section .aside {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.content .fold > summary {
+  position: relative;
+}
+
+.tip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-left: 4px;
+  border: 1.5px solid var(--outline);
+  border-radius: 50%;
+  background: #e3edcb;
+  color: var(--outline);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1;
+  cursor: help;
+  vertical-align: 2px;
+  user-select: none;
+}
+
+.tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  z-index: 5;
+  width: min(320px, 100%);
+  padding: 10px 14px;
+  border: 2px solid var(--outline);
+  border-radius: 14px;
+  background: var(--card);
+  box-shadow: 4px 5px 0 rgba(59, 74, 45, 0.25);
+  color: var(--ink);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.45;
+  text-transform: none;
+  letter-spacing: 0;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-3px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+
+.tip:hover::after,
+.tip:focus::after,
+.tip.show::after {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.pooh {
+  margin: 28px 0 8px;
+  padding: 12px 18px;
+  border-left: 4px solid var(--accent-soft);
+  background: #fbf3dd;
+  border-radius: 6px 16px 16px 6px;
+}
+
+.pooh p {
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.02rem;
+  color: var(--outline);
+}
+
+.pooh cite {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  font-style: normal;
+  color: var(--ink-soft);
+}
+
+.content .fold {
+  margin-top: 4px;
+}
+
+.content .fold > summary.section {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 18px 0 4px;
+  padding: 8px 0 6px;
+  border-bottom: 2px dashed var(--stitch);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.card .fold > summary {
+  cursor: pointer;
+}
+
+.content .fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+.content .fold > summary::before {
+  content: '';
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 7px solid var(--outline);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  transition: transform 0.15s ease;
+  align-self: center;
+}
+
+.content .fold[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.content .fold > summary:hover {
+  color: var(--accent);
+}
+
+.content .fold[open] > summary {
+  margin-bottom: 8px;
+}
+
+.content .fold .subsection:first-of-type {
+  margin-top: 8px;
+}
+
+.content .gratitude + .section {
+  margin-top: 28px;
+}
+
+.content .subsection {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 500;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 18px 0 4px;
+}
+
+.courses,
+.refs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.courses li {
+  display: flex;
+  gap: 14px;
+  padding: 7px 0;
+  border-bottom: 1.5px dashed var(--stitch);
+  line-height: 1.4;
+}
+
+.courses li:last-child {
+  border-bottom: 0;
+}
+
+.courses .code {
+  flex: 0 0 6.6rem;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--outline);
+}
+
+.courses .info {
+  flex: 1;
+  min-width: 0;
+}
+
+.courses .ctitle {
+  font-size: 0.98rem;
+}
+
+.courses .note {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #e3edcb;
+  color: var(--outline);
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+
+.courses .prof {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.papers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.papers li {
+  padding: 12px 0;
+  border-bottom: 1.5px dashed var(--stitch);
+  line-height: 1.45;
+}
+
+.papers li:first-child {
+  padding-top: 4px;
+}
+
+.papers li:last-child {
+  border-bottom: 0;
+}
+
+.papers span {
+  display: block;
+}
+
+.papers .ptitle {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 500;
+  font-size: 1.08rem;
+  color: var(--outline);
+}
+
+.papers .pauthors {
+  font-size: 0.95rem;
+}
+
+.papers .pvenue {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.papers .plinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.papers .plinks a {
+  display: block;
+  width: 5.2rem;
+  text-align: center;
+  padding: 2px 0;
+  border: 2px solid var(--outline);
+  border-radius: 999px;
+  background: #e3edcb;
+  color: var(--outline);
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
+.papers .plinks a:hover {
+  background: #d3e3b0;
+  color: var(--outline);
+}
+
+.content .me {
+  font-weight: 800;
+}
+
+.content .footnote {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.refs li {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  padding-left: 1.6em;
+  text-indent: -1.6em;
+  margin-bottom: 6px;
+}
+
+.bio-placeholder {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.coming-soon {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* Wrapper positions the cursor instantly (no transition — avoids lag behind the mouse). */
+.cursor-cookie {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.12s ease;
+}
+
+.cursor-cookie.hidden {
+  opacity: 0;
+}
+
+/* Inner visual carries the bite/pulse animation, decoupled from position. */
+.cookie-visual {
+  position: absolute;
+  top: -17px;
+  left: -17px;
+  width: 34px;
+  height: 34px;
+  background: url('assets/cookie.png') center / contain no-repeat;
+  filter: drop-shadow(0 3px 4px rgba(80, 50, 15, 0.35));
+  transform: scale(1) rotate(0deg);
+  transform-origin: 50% 50%;
+  transition: transform 0.22s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.cursor-cookie.pulse .cookie-visual {
+  transform: scale(0.2) rotate(35deg);
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 32px 24px 36px;
+  }
+  .tabs {
+    gap: 14px;
+  }
+  .name {
+    font-size: 1.7rem;
+  }
+  .courses li {
+    flex-direction: column;
+    gap: 0;
+  }
+  .courses .code {
+    flex-basis: auto;
+  }
+}
